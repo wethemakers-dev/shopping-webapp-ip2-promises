@@ -1,0 +1,28 @@
+.jumbo {
+    display: flex;
+    align-content: center;
+    margin-bottom: 45px;
+
+}
+
+@media (min-width: 576px) {
+    .jumbotron {
+        padding: 0.5rem 0rem 0rem;
+        background-color: #f3f3f3
+    }
+}
+
+.shop {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.heart {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.shopping-bag {
+    font-size: 22px;
+    margin-bottom: 5px;
+}

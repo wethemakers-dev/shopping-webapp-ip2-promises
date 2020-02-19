@@ -5,7 +5,6 @@ import Marketlocater from "../src/Container/Marketlocater/Marketlocater";
 import Wishlist from "../src/Container/Wishlist/Wishlist";
 import Shoppinglist from "../src/Container/Shoppinglist/Shoppinglist";
 import Familyshare from "../src/Container/Familyshare/Familyshare";
-import { Home } from "../src/Container/Home/Home";
 import { Layout } from "../src/Component/Layout/Layout";
 import { NavigationBar } from "../src/Component/NavigationBar/NavigationBar";
 import { JumboTron } from "../src/Component/JumboTron/JumboTron";
@@ -19,7 +18,7 @@ class App extends Component {
           <JumboTron />
           <Layout>
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" component={Shoppinglist} />
               <Route path="/Wishlist" component={Wishlist} />
               <Route path="/marketlocater" component={Marketlocater} />
               <Route path="/Shoppinglist" component={Shoppinglist} />

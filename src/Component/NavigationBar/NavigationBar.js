@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 import { Nav, Navbar } from "react-bootstrap";
 import styled from "styled-components";
-import "./NavigationBar.css";
 
 const Styles = styled.div`
   .navbar {
+    padding: 0rem 1rem;
     background-color: #537d91;
   }
 

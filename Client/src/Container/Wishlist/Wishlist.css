@@ -1,0 +1,16 @@
+.add_btn {
+    margin-left: 40%;
+}
+
+.delete {
+    font-size: 20px;
+    color: rgb(0, 0, 0);
+}
+
+.delete:hover {
+    color: rgb(228, 17, 17);
+    transition: color .15s ease-in-out,
+        background-color .15s ease-in-out,
+        border-color .15s ease-in-out,
+        box-shadow .15s ease-in-out;
+}

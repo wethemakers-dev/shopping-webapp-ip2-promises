@@ -10,7 +10,6 @@ import {
 import { MdDelete } from "react-icons/md";
 import { GiShoppingCart } from "react-icons/gi";
 import axios from "axios";
-import "./Wishlist.css";
 
 class Wishlist extends Component {
   state = {
@@ -135,9 +134,12 @@ class Wishlist extends Component {
                   onChange={this.handleChange}
                 >
                   <option value="">Select Category</option>
-                  <option value="option 1">option 1</option>
-                  <option value="option 2">option 2</option>
-                  <option value="option 3">option 3</option>
+                  <option value="Home Fureniture">Home Fureniture</option>
+                  <option value="Home Decoration">Home Decoration</option>
+                  <option value="Garden Fureniture">Garden Fureniture</option>
+                  <option value="Kitchen appliances">Kitchen appliances</option>
+                  <option value="Bath">Bath</option>
+                  <option value="Home & More">Home & More</option>
                 </Form.Control>
               </Form.Group>
             </Form>
@@ -172,7 +174,7 @@ class Wishlist extends Component {
                 <tbody key={index}>
                   <tr>
                     <td> {item.title}</td>
-                    <td>{item.price}$</td>
+                    <td>${item.price}</td>
                     <td>{item.category}</td>
                     <td>
                       <MdDelete

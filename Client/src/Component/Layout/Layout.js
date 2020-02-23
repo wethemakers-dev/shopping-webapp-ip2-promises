@@ -1,6 +1,6 @@
 import React from "react";
-import { Content } from "rsuite";
+import "./Layout.css";
 
 export const Layout = props => (
-  <Content className="body-container">{props.children}</Content>
+  <div className="body-container">{props.children}</div>
 );

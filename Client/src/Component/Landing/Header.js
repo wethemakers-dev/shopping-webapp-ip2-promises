@@ -12,14 +12,14 @@ class Header extends Component {
           <Link to="/Shoppinglist">
             <Logo className="logo" src={logo} />
           </Link>
-          <Link to="/signin" className="signIn-btn">
+          <Link to="/LoginRegister" className="signIn-btn">
             Sign In
           </Link>
         </div>
         <div className="header-content">
           <Title>Plan Your Home</Title>
           <SubTitle>Prepare your home for best</SubTitle>
-          <Link to="/signup">
+          <Link to="/LoginRegister">
             <Button className="main-offer-btn" primary>
               try it now
               <a className="Icon" />

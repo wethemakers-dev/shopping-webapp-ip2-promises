@@ -13,7 +13,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/login', function (req, res, next) {
-  res.render('login', { title: 'login' })
+  res.send('login', { title: 'login' })
 });
 
 router.post('/login', (req, res, next) => {
@@ -87,6 +87,7 @@ router.post('/loginInsert', (req, res) => {
 
 
 ////////////////////////////////
+
 var userEmailss = req.body.userEmail.toLowerCase();
 const uu = new DB.User();
 DB.User.findOne({userEmail : userEmailss} , (error , user) => {
@@ -112,10 +113,10 @@ DB.User.findOne({userEmail : userEmailss} , (error , user) => {
   ///////////////////////////////
 
   var sessionData = req._id
-  console.log(sessionData);
+  
   
   const { userPassword, userEmail } = req.body;
-  console.log(req);
+  
 
   if (!userPassword) {
     return res.send(
@@ -135,7 +136,8 @@ DB.User.findOne({userEmail : userEmailss} , (error , user) => {
     if (error) {
       return res.send({ messege: 'server error' });
     } else
-      if (previousUser) res.send({ sucsses: true, messege: 'founded user wellcom  : ' + userEmails + " " + 'again ' })
+      if (previousUser)
+       res.send( previousUser); 
       else {
         return res.send({
           messege: " user not found"
@@ -157,7 +159,7 @@ DB.User.findOne({userEmail : userEmailss} , (error , user) => {
 router.post('/WishList', async (req, res) => {
   const { body } = req;
   const { title, price, catgegory } = body;
-console.log(req.body);
+
   if (!catgegory) {
     return res.send(
       { messege: 'password error' }

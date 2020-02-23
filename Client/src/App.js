@@ -5,21 +5,23 @@ import Wishlist from "../src/Container/Wishlist/Wishlist";
 import Shoppinglist from "../src/Container/Shoppinglist/Shoppinglist";
 import Familyshare from "../src/Container/Familyshare/Familyshare";
 import { Layout } from "../src/Component/Layout/Layout";
-import { NavigationBar } from "../src/Component/NavigationBar/NavigationBar";
-import { SideNav } from "../src/Component/SideNav/SideNav";
 import { Container } from "rsuite";
+import Landingpage from "./Container/Landingpage/Landingpage";
+import "./App.css";
 
 class App extends Component {
+  state = {};
   render() {
     return (
       <Container>
         <Router>
-          <NavigationBar />
+          <Switch>
+            <Route exact path="/" component={Landingpage} /> />
+          </Switch>
+
           <Container>
-            <SideNav />
             <Layout>
               <Switch>
-                <Route exact path="/" component={Shoppinglist} />
                 <Route path="/Wishlist" component={Wishlist} />
                 <Route path="/marketlocater" component={Marketlocater} />
                 <Route path="/Shoppinglist" component={Shoppinglist} />

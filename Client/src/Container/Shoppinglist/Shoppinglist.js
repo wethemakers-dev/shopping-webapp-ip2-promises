@@ -8,9 +8,11 @@ import {
   FormControl
 } from "react-bootstrap";
 import { MdDelete } from "react-icons/md";
-import { AiOutlineShopping } from "react-icons/ai";
-
+import { GiShoppingCart } from "react-icons/gi";
 import "./Shoppinglist.css";
+import { NavigationBar } from "../../Component/NavigationBar/NavigationBar";
+import NavBar from "../../Component/Nav/NavBar";
+import axios from "axios";
 
 class Shoppinglist extends Component {
   state = {
@@ -18,13 +20,31 @@ class Shoppinglist extends Component {
     price: "",
     category: "",
 
-    wishList: [
+    shoppingList: [
       { title: "test", price: "55", category: "accessories" },
       { title: "test2", price: "100", category: "accessories" },
       { title: "test3", price: "200", category: "accessories" }
     ],
     show: false
   };
+
+  componentDidMount = () => {
+    this.getlist();
+  };
+
+  getlist = () => {
+    axios
+      .get("https://jsonplaceholder.typicode.com/posts")
+      .then(res => {
+        const data = res.data;
+        this.setState({ shoppingList: data });
+        console.log("Data recived");
+      })
+      .catch(() => {
+        console.log("err");
+      });
+  };
+
   handleShow = () => {
     this.setState({ show: true });
   };
@@ -34,23 +54,33 @@ class Shoppinglist extends Component {
 
   handleSubmitButton = e => {
     e.preventDefault();
-    const { title, price, category } = this.state;
+    const { title, price, category, shoppingList } = this.state;
     this.setState(prevState => ({
-      wishList: [...prevState.wishList, { title, price, category }],
-
+      shoppingList: [...prevState.shoppingList, { title, price, category }],
       show: false
     }));
+    axios({
+      url: "",
+      method: "POST",
+      data: shoppingList
+    })
+      .then(() => {
+        console.log("Data sent to server");
+        this.handleChange();
+        this.getlist();
+      })
+      .catch(() => {});
   };
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  removeItem = index => {
+  removeItem(index) {
     this.setState(prevState => ({
-      wishList: prevState.wishList.filter((_, i) => i !== index)
+      shoppingList: prevState.shoppingList.filter((_, i) => i !== index)
     }));
-  };
+  }
 
   render() {
     const { title, price, category } = this.state;
@@ -60,8 +90,16 @@ class Shoppinglist extends Component {
 
     return (
       <div className="main-container">
+        <NavigationBar />
+        <NavBar />
+
         <h5>My Shopping List</h5>
-        <br />
+        <div className="add_btn">
+          <Button variant="dark" onClick={this.handleShow}>
+            Add Item
+          </Button>
+        </div>
+
         <Modal
           show={this.state.show}
           onHide={this.handleClose}
@@ -132,8 +170,8 @@ class Shoppinglist extends Component {
           </Modal.Footer>
         </Modal>
 
-        <div>
-          <Table className="Table" striped hover>
+        <div className="Table">
+          <Table striped hover>
             <thead>
               <tr>
                 <th>Item Name</th>
@@ -142,7 +180,7 @@ class Shoppinglist extends Component {
                 <th>Actions</th>
               </tr>
             </thead>
-            {this.state.wishList.map((item, index) => {
+            {this.state.shoppingList.map((item, index) => {
               return (
                 <tbody key={index}>
                   <tr>
@@ -154,23 +192,13 @@ class Shoppinglist extends Component {
                         className="delete"
                         onClick={() => this.removeItem(index)}
                       />
-                      <AiOutlineShopping className="add_shop" />
+                      <GiShoppingCart className="add_shop" />
                     </td>
                   </tr>
                 </tbody>
               );
             })}
           </Table>
-        </div>
-        <div>
-          <br />
-          <Button
-            className="add_btn"
-            variant="outline-dark"
-            onClick={this.handleShow}
-          >
-            Add Item
-          </Button>
         </div>
       </div>
     );

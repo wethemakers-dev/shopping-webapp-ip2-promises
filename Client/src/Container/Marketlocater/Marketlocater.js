@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./Market.css";
 import axios from "axios";
+import NavBar from "../../Component/Nav/NavBar";
+import { NavigationBar } from "../../Component/NavigationBar/NavigationBar";
 
 class Marketlocater extends Component {
   state = {
@@ -23,7 +25,7 @@ class Marketlocater extends Component {
     const parameters = {
       client_id: "E2QT4PRJGWN2BCGKGIZCCRLDDK0DQCJSTKOE1E154AUSMZK1",
       client_secret: "KGKPZSZOOIU0ZUSUVNR5Q3RR1D00HW04A1NF0Y5P3PII44HD",
-      query: "food",
+      query: "furniture",
       ll: "32.009698, 35.833438",
       v: "20180323",
       radius: "4000",
@@ -84,6 +86,8 @@ class Marketlocater extends Component {
   render() {
     return (
       <main>
+        <NavigationBar />
+        <NavBar />
         <div id="map"></div>
       </main>
     );

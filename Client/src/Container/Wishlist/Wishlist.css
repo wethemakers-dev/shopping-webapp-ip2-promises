@@ -1,5 +1,16 @@
-.add_btn {
-    margin-left: 40%;
+.main-container {
+    font-family: "Muli";
+    position: relative;
+
+}
+
+h5 {
+    margin-left: 4%;
+}
+
+.Table {
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 .delete {
@@ -7,8 +18,25 @@
     color: rgb(0, 0, 0);
 }
 
+.add_btn {
+    text-align: center;
+    margin-bottom: 3%;
+    margin-right: 3%;
+
+}
+
 .delete:hover {
-    color: rgb(228, 17, 17);
+    color: rgb(219, 54, 54);
+}
+
+.add_shop {
+    font-size: 23px;
+    margin-left: 9px;
+    color: rgb(39, 46, 39);
+}
+
+.add_shop:hover {
+    color: rgb(51, 182, 51);
     transition: color .15s ease-in-out,
         background-color .15s ease-in-out,
         border-color .15s ease-in-out,

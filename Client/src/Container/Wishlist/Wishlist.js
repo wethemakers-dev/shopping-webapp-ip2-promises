@@ -9,9 +9,11 @@ import {
 } from "react-bootstrap";
 import { MdDelete } from "react-icons/md";
 import { GiShoppingCart } from "react-icons/gi";
-import axios from "axios";
+import "./Wishlist.css";
+import { NavigationBar } from "../../Component/NavigationBar/NavigationBar";
+import NavBar from "../../Component/Nav/NavBar";
 
-class Wishlist extends Component {
+class WishList extends Component {
   state = {
     title: "",
     price: "",
@@ -25,23 +27,6 @@ class Wishlist extends Component {
     show: false
   };
 
-  componentDidMount = () => {
-    this.getlist();
-  };
-
-  getlist = () => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/posts")
-      .then(res => {
-        const data = res.data;
-        this.setState({ wishList: data });
-        console.log("Data recived");
-      })
-      .catch(() => {
-        console.log("err");
-      });
-  };
-
   handleShow = () => {
     this.setState({ show: true });
   };
@@ -51,22 +36,11 @@ class Wishlist extends Component {
 
   handleSubmitButton = e => {
     e.preventDefault();
-    const { title, price, category, wishList } = this.state;
+    const { title, price, category } = this.state;
     this.setState(prevState => ({
       wishList: [...prevState.wishList, { title, price, category }],
       show: false
     }));
-    axios({
-      url: "",
-      method: "POST",
-      data: wishList
-    })
-      .then(() => {
-        console.log("Data sent to server");
-        this.handleChange();
-        this.getlist();
-      })
-      .catch(() => {});
   };
 
   handleChange = e => {
@@ -87,8 +61,16 @@ class Wishlist extends Component {
 
     return (
       <div className="main-container">
-        <h5>My Wish List</h5>
-        <br />
+        <NavigationBar />
+        <NavBar />
+
+        <h5>My Wishlist</h5>
+        <div className="add_btn">
+          <Button variant="dark" onClick={this.handleShow}>
+            Add Item
+          </Button>
+        </div>
+
         <Modal
           show={this.state.show}
           onHide={this.handleClose}
@@ -159,8 +141,8 @@ class Wishlist extends Component {
           </Modal.Footer>
         </Modal>
 
-        <div>
-          <Table className="Table" striped hover>
+        <div className="Table">
+          <Table striped hover>
             <thead>
               <tr>
                 <th>Item Name</th>
@@ -189,19 +171,9 @@ class Wishlist extends Component {
             })}
           </Table>
         </div>
-        <div>
-          <br />
-          <Button
-            className="add_btn"
-            variant="outline-dark"
-            onClick={this.handleShow}
-          >
-            Add Item
-          </Button>
-        </div>
       </div>
     );
   }
 }
 
-export default Wishlist;
+export default WishList;

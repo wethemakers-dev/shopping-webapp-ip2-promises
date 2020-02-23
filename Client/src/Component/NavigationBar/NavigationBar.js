@@ -1,21 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Header } from "rsuite";
-
 import { Nav, Navbar } from "react-bootstrap";
 import styled from "styled-components";
-import { GiPositionMarker } from "react-icons/gi";
-import { FiShare } from "react-icons/fi";
-
-import logo from "../../assets/Untitled design.png";
+import logo from "../../assets/images/Untitled design.png";
+import { Button } from "react-bootstrap";
 
 const Styles = styled.div`
+  .shop {
+    margin-left: 100px;
+  }
   .logo {
-    width: 40px;
+    width: 50px;
   }
   .navbar {
     padding: 0rem 1rem;
-    background-color: #c82121;
+    background-color: #2ca3a5;
   }
 
   a,
@@ -23,10 +23,12 @@ const Styles = styled.div`
   .navbar-nav .nav-link {
     text-decoration: none;
     font-size: 11px;
-    color: white;
+    font-family: "Muli";
+
+    color: black;
 
     &:hover {
-      color: grey;
+      color: white;
     }
   }
 `;
@@ -36,25 +38,22 @@ export const NavigationBar = () => (
     <Styles>
       <Navbar expand="lg">
         <Navbar.Brand href="/">
-          <img className="logo" src={logo} alt="fireSpot" />
+          <img className="logo" src={logo} />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
             <Nav.Item>
-              <Nav.Link>
-                <Link to="/Marketlocater">
-                  <GiPositionMarker className="shop" /> Find A Store
-                </Link>
-              </Nav.Link>
+              <Link to="/Share">
+                <Button variant="light">Share</Button>
+              </Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link>
-                <Link to="/Share">
-                  <FiShare className="shop" />
-                  Share
-                </Link>
-              </Nav.Link>
+              <Link to="/">
+                <Button variant="outline-light" className="shop">
+                  Log out
+                </Button>
+              </Link>
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>

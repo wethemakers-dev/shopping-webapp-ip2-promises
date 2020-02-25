@@ -51,7 +51,7 @@ class WishList extends Component {
       show: false
     }));
     axios
-      .post("", {
+      .post("http://localhost:3001/users/WishList", {
         title: this.state.title,
         price: this.state.price,
         category: this.state.category

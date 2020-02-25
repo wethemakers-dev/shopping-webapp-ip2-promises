@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./LoginRegister.css";
+import axios from "axios";
 
 class LoginRegister extends Component {
   state = {
@@ -11,9 +12,23 @@ class LoginRegister extends Component {
     userPassword: ""
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
-    //Alter your Axios request like below
+  handelLogin = () => {
+    axios
+      .post("http://localhost:3001/users/loginInsert", {
+        userE: this.state.userE,
+        userPass: this.state.userPass
+      })
+      .then(data => console.log(data));
+  };
+
+  handleSubmit = () => {
+    axios
+      .post("http://localhost:3001/users/insert", {
+        userEmail: this.state.userEmail,
+        userName: this.state.userName,
+        userPassword: this.state.userPassword
+      })
+      .then(data => console.log(data));
   };
 
   handleInput = e => {
@@ -78,7 +93,11 @@ class LoginRegister extends Component {
               </button>
             </div>
 
-            <form id="login" className="input-group">
+            <form
+              id="login"
+              onSubmit={this.handelLogin}
+              className="input-group"
+            >
               <input
                 type="email"
                 className="inputField"
@@ -100,7 +119,11 @@ class LoginRegister extends Component {
               </button>
             </form>
 
-            <form id="register" className="input-group">
+            <form
+              id="register"
+              className="input-group"
+              onSubmit={this.handleSubmit}
+            >
               <input
                 type="text"
                 className="inputField"

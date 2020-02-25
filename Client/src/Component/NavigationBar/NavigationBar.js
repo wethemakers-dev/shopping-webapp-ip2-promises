@@ -7,6 +7,10 @@ import logo from "../../assets/images/Untitled design.png";
 import { Button } from "react-bootstrap";
 
 const Styles = styled.div`
+  .toggle {
+    color: white;
+    background-color;
+  }
   .shop {
     margin-left: 100px;
   }
@@ -40,7 +44,7 @@ export const NavigationBar = () => (
         <Navbar.Brand href="/">
           <img className="logo" src={logo} />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle className="toggle" aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
             <Nav.Item>

@@ -12,6 +12,7 @@ import { GiShoppingCart } from "react-icons/gi";
 import "./Wishlist.css";
 import { NavigationBar } from "../../Component/NavigationBar/NavigationBar";
 import NavBar from "../../Component/Nav/NavBar";
+import axios from "axios";
 
 class WishList extends Component {
   state = {
@@ -19,13 +20,21 @@ class WishList extends Component {
     price: "",
     category: "",
 
-    wishList: [
-      { title: "test", price: "55", category: "accessories" },
-      { title: "test2", price: "100", category: "accessories" },
-      { title: "test3", price: "200", category: "accessories" }
-    ],
+    wishList: [],
     show: false
   };
+
+  // componentDidMount() {
+  //   axios.get("").then(res => {
+  //     this.setState({
+  //       wishList: res.data,
+  //       title: "",
+  //       price: "",
+  //       category: ""
+  //     });
+  //     console.log(data).catch(err => console.log(err));
+  //   });
+  // }
 
   handleShow = () => {
     this.setState({ show: true });
@@ -41,6 +50,14 @@ class WishList extends Component {
       wishList: [...prevState.wishList, { title, price, category }],
       show: false
     }));
+    axios
+      .post("", {
+        title: this.state.title,
+        price: this.state.price,
+        category: this.state.category
+      })
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   };
 
   handleChange = e => {
@@ -51,6 +68,10 @@ class WishList extends Component {
     this.setState(prevState => ({
       wishList: prevState.wishList.filter((_, i) => i !== index)
     }));
+    axios
+      .delete("/:id")
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   }
 
   render() {

@@ -12,7 +12,7 @@
     height: 100%;
     background-attachment: fixed;
     width: 100%;
-    background-image: url('../../assets/images/shopping.jpg');
+    background: linear-gradient(83deg, rgba(52, 177, 169, 1) 43%, rgba(100, 202, 196, 1) 77%);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -55,6 +55,7 @@
     border: 0;
     outline: none;
     position: relative;
+
 }
 
 #btn {
@@ -63,9 +64,11 @@
     position: absolute;
     width: 110px;
     height: 100%;
-    background: linear-gradient(to right, #ff105f, #ffad06);
+    background: #fd5e53;
     border-radius: 30px;
     transition: .5s;
+
+
 }
 
 .input-group {
@@ -93,7 +96,7 @@
     cursor: pointer;
     display: block;
     margin: auto;
-    background: linear-gradient(to right, #ff105f, #ffad06);
+    background: #c9bab9;
     border: 0;
     outline: none;
     border-radius: 30px;

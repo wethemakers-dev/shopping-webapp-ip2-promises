@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { GiPositionMarker } from "react-icons/gi";
+import { Header } from "rsuite";
 
 import "rsuite/dist/styles/rsuite-default.css";
 
@@ -30,21 +31,23 @@ const Styles = styled.div`
 class NavBar extends React.Component {
   render() {
     return (
-      <Styles>
-        <Nav className="nav">
-          <Nav.Item>
-            <Link to="/Shoppinglist"> My Shopping List</Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Link to="/Wishlist"> My Wishlist</Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Link to="/Marketlocater">
-              <GiPositionMarker className="shop" /> Find A Store
-            </Link>
-          </Nav.Item>
-        </Nav>
-      </Styles>
+      <Header>
+        <Styles>
+          <Nav className="nav">
+            <Nav.Item>
+              <Link to="/Shoppinglist"> My Shopping List</Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Link to="/Wishlist"> My Wishlist</Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Link to="/Marketlocater">
+                <GiPositionMarker className="shop" /> Find A Store
+              </Link>
+            </Nav.Item>
+          </Nav>
+        </Styles>
+      </Header>
     );
   }
 }

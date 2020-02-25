@@ -38,7 +38,7 @@ getEmployeeByID  = (req, res) => {
   
   res.send(user);
   
-  }).catch((error) => {  /////question
+  }).catch((error) => {  
   
   res.status(500).send(error)
   
@@ -107,14 +107,7 @@ router.post('/insert', (req, res) => {
 /////// Log In ///////
 //////////////////////
 
-
-
-
-
 router.post('/loginInsert', (req, res) => {
-
-
-  ////////////////////////////////
 
   var userEmailss = req.body.userEmail.toLowerCase();
   const uu = new DB.User();
@@ -128,17 +121,7 @@ router.post('/loginInsert', (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-  ///////////////////////////////
+  
 
   var sessionData = req._id
 
@@ -178,8 +161,9 @@ router.post('/loginInsert', (req, res) => {
       res.redirect('/shopping/' + previousUser._id);
 
 
-  })
-})
+  });
+});
+
 /////////////////////////
 ///////// Add Item //////
 /////////////////////////
@@ -244,7 +228,7 @@ router.post('/WishList', async (req, res) => {
     }
 
     //else {return res.send('Item already saved')}
-  })
+  });
 
   // const Ti = await DB.Shopping.findOne({ title: titles });
   // if(Ti) 

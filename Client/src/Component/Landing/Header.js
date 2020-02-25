@@ -22,7 +22,6 @@ class Header extends Component {
           <Link to="/LoginRegister">
             <Button className="main-offer-btn" primary>
               try it now
-              <a className="Icon" />
             </Button>
           </Link>
         </div>

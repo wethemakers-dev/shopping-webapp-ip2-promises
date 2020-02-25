@@ -12,37 +12,16 @@ import { GiShoppingCart } from "react-icons/gi";
 import "./Shoppinglist.css";
 import { NavigationBar } from "../../Component/NavigationBar/NavigationBar";
 import NavBar from "../../Component/Nav/NavBar";
-import axios from "axios";
 
 class Shoppinglist extends Component {
+  documentData;
   state = {
     title: "",
     price: "",
     category: "",
 
-    shoppingList: [
-      { title: "test", price: "55", category: "accessories" },
-      { title: "test2", price: "100", category: "accessories" },
-      { title: "test3", price: "200", category: "accessories" }
-    ],
+    shoppingList: [],
     show: false
-  };
-
-  componentDidMount = () => {
-    this.getlist();
-  };
-
-  getlist = () => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/posts")
-      .then(res => {
-        const data = res.data;
-        this.setState({ shoppingList: data });
-        console.log("Data recived");
-      })
-      .catch(() => {
-        console.log("err");
-      });
   };
 
   handleShow = () => {
@@ -54,22 +33,11 @@ class Shoppinglist extends Component {
 
   handleSubmitButton = e => {
     e.preventDefault();
-    const { title, price, category, shoppingList } = this.state;
+    const { title, price, category } = this.state;
     this.setState(prevState => ({
       shoppingList: [...prevState.shoppingList, { title, price, category }],
       show: false
     }));
-    axios({
-      url: "",
-      method: "POST",
-      data: shoppingList
-    })
-      .then(() => {
-        console.log("Data sent to server");
-        this.handleChange();
-        this.getlist();
-      })
-      .catch(() => {});
   };
 
   handleChange = e => {

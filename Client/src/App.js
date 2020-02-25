@@ -11,7 +11,6 @@ import "./App.css";
 import LoginRegister from "./Container/LoginRegister/LoginRegister";
 
 class App extends Component {
-  state = {};
   render() {
     return (
       <Container>

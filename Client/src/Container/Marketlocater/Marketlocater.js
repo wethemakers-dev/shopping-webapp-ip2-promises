@@ -26,7 +26,7 @@ class Marketlocater extends Component {
       client_id: "E2QT4PRJGWN2BCGKGIZCCRLDDK0DQCJSTKOE1E154AUSMZK1",
       client_secret: "KGKPZSZOOIU0ZUSUVNR5Q3RR1D00HW04A1NF0Y5P3PII44HD",
       query: "furniture",
-      ll: "32.009698, 35.833438",
+      ll: "32.006871, 35.854092",
       v: "20180323",
       radius: "4000",
       limit: "50"

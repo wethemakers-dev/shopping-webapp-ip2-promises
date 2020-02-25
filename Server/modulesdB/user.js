@@ -29,7 +29,8 @@ const shoppingSchema =new  mongoose.Schema({
     catgegory : {
         type : String,
         require
-    }
+    },
+    user_id : String
 
 })
 const shopping=  mongoose.model("shopping", shoppingSchema);

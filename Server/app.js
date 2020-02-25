@@ -1,4 +1,5 @@
 var createError = require('http-errors');
+var cors = require('cors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -9,10 +10,11 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
-
+app.use(cors());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -32,8 +34,15 @@ mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true }, functi
   
 );
 
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+app.use((req,res,next) => {
+  const error = new Error('Not  found');
+  error.status = 404;
+  next(error)
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -75,7 +75,7 @@ router.post('/insert', (req, res) => {
     }
     if (previousUser) {
 
-      return res.send({ sucsses: false, messege: 'error : user already exist' })
+      return res.send({  messege: 'error : user already exist' })
     }
     else {
 
@@ -87,7 +87,7 @@ router.post('/insert', (req, res) => {
             })
 
         } else
-          return res.send({ sucsses: true, messege: 'signed up' });
+          return res.send(user);
 
       }
       );

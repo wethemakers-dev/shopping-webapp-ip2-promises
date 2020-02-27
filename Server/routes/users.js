@@ -20,32 +20,19 @@ router.post('/login', (req, res, next) => {
   console.log(req.body.userEmail);
 });
 
-///////// git user by id ////////
-/////////////////////////////////
 
 
-getEmployeeByID  = (req, res) => {
 
-        
-  
-  DB.Shopping.findOne({user_id : req.body.id}).then((user) => {
-  
-  if (!user) {
-  
-  return  res.status(404).send()
-  
-  }         
-  
-  res.send(user);
-  
-  }).catch((error) => {  
-  
-  res.status(500).send(error)
-  
-  })    
-  }
-router.get('/shopping',getEmployeeByID);
-
+router.get('/giveshoppingItem' , (req,res) => {
+  DB.Shopping.find({$and:[{ user_id : req.params._id},{wishListCecked : false}]} ,
+    (error , result) => {
+      if (error) {
+        res.send('error usually from id');
+      } else {
+        res.send(result);
+      }
+    });
+});
 
 
 
@@ -61,7 +48,7 @@ router.post('/insert', (req, res) => {
   const newUser = new DB.User();
   newUser.userName = userName;
   newUser.userEmail = userEmail.toLowerCase();
-  newUser.userPassword = userPassword;
+  newUser.userPassword = DB.User.generateHashCode(userPassword);
 
 
 
@@ -144,49 +131,29 @@ router.post('/loginInsert', (req, res) => {
 
   DB.User.findOne({ userEmail: userEmails }, (error, previousUser) => {
 
-    if (error) {
-      return res.send({ messege: 'server error' });
-    } else
-      if (previousUser)
-        res.send(previousUser);
-      else {
-        return res.send({
-          messege: " user not found"
-        });
-      }
-
-
-
-
-      res.redirect('/shopping/' + previousUser._id);
+    if (error) 
+    res.send({messege:'error server'});
+    
+    if (!previousUser) 
+      res.send ({messege:'no user found'});
+    if (!previousUser.validPassword(userP))
+     {res.send({messege : 'error Password'});}
+     
+     res.send(previousUser);
 
 
   });
 });
 
-/////////////////////////
-///////// Add Item //////
-/////////////////////////
+/////////////////////////////////////////
+///////// Add Item in shoppingList //////
+/////////////////////////////////////////
 
-router.post('/WishList', async (req, res) => {
+router.post('/addShoppingList',  (req, res) => {
   const { body } = req;
   const { title, price, catgegory } = body;
 
-  // if (!catgegory) {
-  //   return res.send(
-  //     { messege: 'password error' }
-  //   )
-  // }
-  // if (!price) {
-  //   return res.send(
-  //     { messege: 'Email error' }
-  //   )
-  // }
-  // if (!title) {
-  //   return res.send(
-  //     { messege: 'Email error' }
-  //   )
-  // }
+
 
   const newItem = new DB.Shopping();
 
@@ -196,33 +163,39 @@ router.post('/WishList', async (req, res) => {
 
   newItem.price = price;
   newItem.title = title.toLowerCase();
+  newItem.wishListCecked = false;
   const titles = body.title.toLowerCase();
   newItem.user_id = req.body.id
 
   // check if Item found
 
 
-  DB.Shopping.findOne({ title: titles }, (error, Item) => {
+  DB.Shopping.find({ title: titles }, (error, Item) => {
     if (error) {
       return res.send('server error');
     } else if (Item) {
-      if (Item.price != prices) {
+      console.log(prices);
+      console.log(Item.price);
+      
+      if (Item.price != prices ) {
 
         newItem.save((error, obj) => {
           if (error) {
             return res.send('server error');
-          } else {
-            res.send('Item saved');
+          }
+           else {console.log('hhhhhhhh');
+           
+            res.send('Itemmmmmm saved');
           }
         })
-      } else { return res.send('Item already saved') }
+      } else { return res.send('Item already exist') }
 
     } else {
       newItem.save((error, obj) => {
         if (error) {
           return res.send('server error');
         } else {
-          res.send('Item saved');
+          res.send('Item saveddddd');
         }
       })
     }
@@ -259,10 +232,96 @@ router.post('/WishList', async (req, res) => {
 
 
 }
-)
+);
 
 
 
+
+
+
+//////////////////////////////////
+////ddelete from shoping list/////
+//////////////////////////////////
+
+router.post('/deleteItem' , (req,res) => {
+  DB.Shopping.remove({ _id : req.body._id}  , (error , result) => {
+    if (error) {
+      console.log('error');res.send('error');
+      
+    } else {
+      console.log('deleted');res.send ('deleted')
+    }
+  } );
+
+
+}
+); //end delete post method
+
+
+////////////////////////////////
+//////// Add in wishList////////
+////////////////////////////////
+
+router.post('/addWishList' , (req,res) => {
+  const { body } = req;
+  const { title, price, catgegory } = body;
+
+  const newItem = new DB.Shopping();
+
+  const prices = body.price;
+
+  newItem.catgegory = catgegory;
+
+  newItem.price = price;
+  newItem.title = title.toLowerCase();
+  newItem.wishListCecked = true ; //// difference here
+  newItem.user_id = req.body._id;
+  const titles = body.title.toLowerCase();
+
+  
+
+
+  // check if Item found
+
+  DB.Shopping.findOne({ title: titles }, (error, Item) => {
+    if (error) {
+      return res.send('server error');
+    } else if (Item) {
+      if (Item.price != prices) {
+
+        newItem.save((error, obj) => {
+          if (error) {
+            return res.send('server error');
+          } else {
+            res.send('Item saved');
+          }
+        });
+      } else { return res.send('Item already saved') }
+
+    } else {
+      newItem.save((error, obj) => {
+        if (error) {
+          return res.send('server error');
+        } else {
+          res.send('Item saved');
+        }
+      });
+    }
+
+}
+); //end find one
+})
+
+router.get('/giveWishList' , (req,res) => {
+  DB.Shopping.find({$and:[{ user_id : req.params._id},{wishListCecked : true}]} ,
+    (error , result) => {
+      if (error) {
+        res.send('error usually from id');
+      } else {
+        res.send(result);
+      }
+    });
+});
 
 
 

@@ -16,12 +16,13 @@ class LoginRegister extends Component {
 
     axios
       .post("http://localhost:3001/users/loginInsert", {
-        userE: this.state.userE,
-        userPass: this.state.userPass
+        userEmail: this.state.userEmail,
+        userPassword: this.state.userPassword
       })
       .then(({ data }) => {
         localStorage.setItem("user", JSON.stringify(data));
         this.props.history.push("./shoppinglist");
+        console.log(data);
       });
   };
 
@@ -36,6 +37,7 @@ class LoginRegister extends Component {
       .then(({ data }) => {
         localStorage.setItem("user", JSON.stringify(data));
         this.props.history.push("./shoppinglist");
+        console.log(data);
       });
   };
 

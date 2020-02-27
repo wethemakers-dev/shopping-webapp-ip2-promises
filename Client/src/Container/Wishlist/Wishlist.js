@@ -28,7 +28,7 @@ class WishList extends Component {
   }
 
   getlist = () => {
-    axios.get("http://localhost:3001/users/WishList").then(res => {
+    axios.get("http://localhost:3001/users/giveWishList").then(res => {
       const data = res.data;
       this.setState({ wishList: data });
     });
@@ -49,7 +49,7 @@ class WishList extends Component {
       show: false
     }));
     axios
-      .post("http://localhost:3001/users/WishList", {
+      .post("http://localhost:3001/users/addWishList", {
         title: this.state.title,
         price: this.state.price,
         category: this.state.category,
@@ -80,7 +80,7 @@ class WishList extends Component {
       wishList: prevState.wishList.filter((_, i) => i !== index)
     }));
     axios
-      .delete("http://localhost:3001/users/WishList", {})
+      .delete("http://localhost:3001/users/deleteItem", {})
       .then(res => console.log(res))
       .catch(err => console.log(err));
   }

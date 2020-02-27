@@ -7,7 +7,6 @@ import {
   InputGroup,
   FormControl
 } from "react-bootstrap";
-import { MdDelete } from "react-icons/md";
 import { FiCheckSquare } from "react-icons/fi";
 import "./Shoppinglist.css";
 import axios from "axios";
@@ -28,7 +27,7 @@ class Shoppinglist extends Component {
   }
 
   getlist = () => {
-    axios.get("http://localhost:3001/users/WishList").then(res => {
+    axios.get("http://localhost:3001/users/giveshoppingItem").then(res => {
       const data = res.data;
       this.setState({ shoppingList: data });
     });
@@ -49,7 +48,7 @@ class Shoppinglist extends Component {
       show: false
     }));
     axios
-      .post("http://localhost:3001/users/WishList", {
+      .post("http://localhost:3001/users/addShoppingList", {
         title: this.state.title,
         price: this.state.price,
         category: this.state.category,
@@ -74,7 +73,7 @@ class Shoppinglist extends Component {
       shoppingList: prevState.shoppingList.filter((_, i) => i !== index)
     }));
     axios
-      .delete("http://localhost:3001/users/WishList", {})
+      .delete("http://localhost:3001/users/deleteItem", {})
       .then(res => console.log(res))
       .catch(err => console.log(err));
   }

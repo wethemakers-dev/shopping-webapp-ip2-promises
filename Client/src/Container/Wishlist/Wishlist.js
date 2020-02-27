@@ -19,7 +19,6 @@ class WishList extends Component {
     title: "",
     price: "",
     category: "",
-
     wishList: [],
     show: false
   };
@@ -81,13 +80,12 @@ class WishList extends Component {
       wishList: prevState.wishList.filter((_, i) => i !== index)
     }));
     axios
-      .delete("http://localhost:3001/users/WishList:id")
+      .delete("http://localhost:3001/users/WishList", {})
       .then(res => console.log(res))
       .catch(err => console.log(err));
   }
 
   render() {
-    console.log(user);
     const { title, price, category } = this.state;
 
     const isEnabled =

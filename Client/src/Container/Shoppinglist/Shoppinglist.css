@@ -9,13 +9,14 @@ h5 {
 }
 
 .Table {
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 10%;
+    margin-right: 10%;
+
 }
 
-.delete {
+.done {
     font-size: 20px;
-    color: rgb(228, 42, 42);
+    color: #95D03A;
 }
 
 .add_btn {
@@ -25,23 +26,11 @@ h5 {
 
 }
 
-.delete:hover {
-    color: #D44638;
+.done:hover {
+    color: rgb(115, 175, 24);
 }
 
-.add_shop {
-    font-size: 23px;
-    margin-left: 9px;
-    color: #95D03A;
-}
 
-.add_shop:hover {
-    color: rgb(46, 177, 46);
-    transition: color .15s ease-in-out,
-        background-color .15s ease-in-out,
-        border-color .15s ease-in-out,
-        box-shadow .15s ease-in-out;
-}
 
 .table td,
 .table th {

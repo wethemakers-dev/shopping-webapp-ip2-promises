@@ -10,16 +10,28 @@ import {
 import { MdDelete } from "react-icons/md";
 import { FiCheckSquare } from "react-icons/fi";
 import "./Shoppinglist.css";
+import axios from "axios";
+
+const user = JSON.parse(localStorage.getItem("user") || "");
 
 class Shoppinglist extends Component {
-  documentData;
   state = {
     title: "",
     price: "",
     category: "",
-
     shoppingList: [],
     show: false
+  };
+
+  componentDidMount() {
+    this.getlist();
+  }
+
+  getlist = () => {
+    axios.get("http://localhost:3001/users/WishList").then(res => {
+      const data = res.data;
+      this.setState({ shoppingList: data });
+    });
   };
 
   handleShow = () => {
@@ -36,6 +48,21 @@ class Shoppinglist extends Component {
       shoppingList: [...prevState.shoppingList, { title, price, category }],
       show: false
     }));
+    axios
+      .post("http://localhost:3001/users/WishList", {
+        title: this.state.title,
+        price: this.state.price,
+        category: this.state.category,
+        user_id: user._id
+      })
+      .then(res => {
+        this.setState({
+          shoppingList: this.state.shoppingList.concat(res.data),
+          title: "",
+          price: "",
+          category: ""
+        });
+      });
   };
 
   handleChange = e => {
@@ -46,6 +73,10 @@ class Shoppinglist extends Component {
     this.setState(prevState => ({
       shoppingList: prevState.shoppingList.filter((_, i) => i !== index)
     }));
+    axios
+      .delete("http://localhost:3001/users/WishList", {})
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
   }
 
   render() {
@@ -151,11 +182,10 @@ class Shoppinglist extends Component {
                     <td>${item.price}</td>
                     <td>{item.category}</td>
                     <td>
-                      <MdDelete
-                        className="delete"
+                      <FiCheckSquare
+                        className="done"
                         onClick={() => this.removeItem(index)}
                       />
-                      <FiCheckSquare className="add_shop" />
                     </td>
                   </tr>
                 </tbody>

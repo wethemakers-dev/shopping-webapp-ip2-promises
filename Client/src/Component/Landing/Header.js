@@ -9,9 +9,7 @@ class Header extends Component {
     return (
       <HeaderContainer className="header-container">
         <div className="header-top">
-          <Link to="/Shoppinglist">
-            <Logo className="logo" src={logo} />
-          </Link>
+          <Logo className="logo" src={logo} />
           <Link to="/LoginRegister" className="signIn-btn">
             Sign In
           </Link>

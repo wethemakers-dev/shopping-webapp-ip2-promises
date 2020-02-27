@@ -9,14 +9,14 @@ h5 {
 }
 
 .Table {
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 10%;
+    margin-right: 10%;
 
 }
 
 .delete {
     font-size: 20px;
-    color: rgb(0, 0, 0);
+    color: #D44638;
 }
 
 .add_btn {

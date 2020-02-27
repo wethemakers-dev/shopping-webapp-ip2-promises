@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./LoginRegister.css";
 import axios from "axios";
-// import { getFromStorage, setInStorage } from "../../Component/Storage";
 
 class LoginRegister extends Component {
   state = {
@@ -10,7 +9,6 @@ class LoginRegister extends Component {
     userEmail: "",
     userName: "",
     userPassword: ""
-    // token: ""
   };
 
   handelLogin = e => {

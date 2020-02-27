@@ -1,5 +1,5 @@
 .main-container {
-    font-family: "Muli";
+    font-family: 'Nunito';
     position: relative;
 
 }
@@ -15,7 +15,7 @@ h5 {
 
 .delete {
     font-size: 20px;
-    color: rgb(0, 0, 0);
+    color: rgb(228, 42, 42);
 }
 
 .add_btn {
@@ -26,13 +26,13 @@ h5 {
 }
 
 .delete:hover {
-    color: rgb(218, 51, 51);
+    color: #D44638;
 }
 
 .add_shop {
     font-size: 23px;
     margin-left: 9px;
-    color: rgb(39, 46, 39);
+    color: #95D03A;
 }
 
 .add_shop:hover {
@@ -41,4 +41,10 @@ h5 {
         background-color .15s ease-in-out,
         border-color .15s ease-in-out,
         box-shadow .15s ease-in-out;
+}
+
+.table td,
+.table th {
+    border-top: 1px solid #ffffff;
+    background-color: rgb(255, 255, 255);
 }

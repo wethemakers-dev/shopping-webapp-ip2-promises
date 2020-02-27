@@ -8,10 +8,8 @@ import {
   FormControl
 } from "react-bootstrap";
 import { MdDelete } from "react-icons/md";
-import { GiShoppingCart } from "react-icons/gi";
+import { FiCheckSquare } from "react-icons/fi";
 import "./Shoppinglist.css";
-import { NavigationBar } from "../../Component/NavigationBar/NavigationBar";
-import NavBar from "../../Component/Nav/NavBar";
 
 class Shoppinglist extends Component {
   documentData;
@@ -58,9 +56,6 @@ class Shoppinglist extends Component {
 
     return (
       <div className="main-container">
-        <NavigationBar />
-        <NavBar />
-
         <h5>My Shopping List</h5>
         <div className="add_btn">
           <Button variant="dark" onClick={this.handleShow}>
@@ -113,9 +108,9 @@ class Shoppinglist extends Component {
                   onChange={this.handleChange}
                 >
                   <option value="">Select Category</option>
-                  <option value="Home Fureniture">Home Fureniture</option>
+                  <option value="Home Fureniture">Home Furniture</option>
                   <option value="Home Decoration">Home Decoration</option>
-                  <option value="Garden Fureniture">Garden Fureniture</option>
+                  <option value="Garden Fureniture">Garden Furniture</option>
                   <option value="Kitchen appliances">Kitchen appliances</option>
                   <option value="Bath">Bath</option>
                   <option value="Home & More">Home & More</option>
@@ -160,7 +155,7 @@ class Shoppinglist extends Component {
                         className="delete"
                         onClick={() => this.removeItem(index)}
                       />
-                      <GiShoppingCart className="add_shop" />
+                      <FiCheckSquare className="add_shop" />
                     </td>
                   </tr>
                 </tbody>

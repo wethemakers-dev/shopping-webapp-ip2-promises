@@ -1,19 +1,44 @@
 import React, { Component } from "react";
 import "./LoginRegister.css";
+import axios from "axios";
+// import { getFromStorage, setInStorage } from "../../Component/Storage";
 
 class LoginRegister extends Component {
   state = {
     userE: "",
     userPass: "",
-
     userEmail: "",
     userName: "",
     userPassword: ""
+    // token: ""
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
-    //Alter your Axios request like below
+  handelLogin = e => {
+    e.preventDefault();
+
+    axios
+      .post("http://localhost:3001/users/loginInsert", {
+        userE: this.state.userE,
+        userPass: this.state.userPass
+      })
+      .then(({ data }) => {
+        localStorage.setItem("user", JSON.stringify(data));
+        this.props.history.push("./shoppinglist");
+      });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:3001/users/insert", {
+        userEmail: this.state.userEmail,
+        userName: this.state.userName,
+        userPassword: this.state.userPassword
+      })
+      .then(({ data }) => {
+        localStorage.setItem("user", JSON.stringify(data));
+        this.props.history.push("./shoppinglist");
+      });
   };
 
   handleInput = e => {
@@ -78,7 +103,11 @@ class LoginRegister extends Component {
               </button>
             </div>
 
-            <form id="login" className="input-group">
+            <form
+              id="login"
+              onSubmit={this.handelLogin}
+              className="input-group"
+            >
               <input
                 type="email"
                 className="inputField"
@@ -100,7 +129,11 @@ class LoginRegister extends Component {
               </button>
             </form>
 
-            <form id="register" className="input-group">
+            <form
+              id="register"
+              className="input-group"
+              onSubmit={this.handleSubmit}
+            >
               <input
                 type="text"
                 className="inputField"

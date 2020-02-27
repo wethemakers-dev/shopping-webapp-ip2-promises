@@ -41,7 +41,7 @@
 }
 
 .button-box {
-    width: 220px;
+    width: 225px;
     margin: 35px auto;
     position: relative;
     box-shadow: 0 0 20px 9px #ff61241f;
@@ -62,7 +62,7 @@
     top: 0;
     left: 0;
     position: absolute;
-    width: 110px;
+    width: 115px;
     height: 100%;
     background: #fd5e53;
     border-radius: 30px;
@@ -96,7 +96,7 @@
     cursor: pointer;
     display: block;
     margin: auto;
-    background: #c9bab9;
+    background: #fd5e53;
     border: 0;
     outline: none;
     border-radius: 30px;

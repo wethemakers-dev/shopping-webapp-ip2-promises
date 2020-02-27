@@ -4,13 +4,13 @@ const DB = require("../modulesdB/user");
 const { Shopping } = require("../modulesdB/user");
 
 /* GET users listing. */
-router.get("/", function(req, res, next) {
+router.get("/", function (req, res, next) {
   var sessionData = req.session;
   console.log(sessionData);
   res.send("respond with a resource");
 });
 
-router.get("/login", function(req, res, next) {
+router.get("/login", function (req, res, next) {
   res.send("login", { title: "login" });
 });
 
@@ -25,12 +25,12 @@ getEmployeeByID = (req, res) => {
       if (!user) {
         return res.status(404).send();
       }
+    })
+}
 
-<<<<<<< HEAD
-
-router.get('/giveshoppingItem' , (req,res) => {
-  DB.Shopping.find({$and:[{ user_id : req.params._id},{wishListCecked : false}]} ,
-    (error , result) => {
+router.get('/giveshoppingItem', (req, res) => {
+  DB.Shopping.find({ $and: [{ user_id: req.params._id }, { wishListCecked: false }] },
+    (error, result) => {
       if (error) {
         res.send('error usually from id');
       } else {
@@ -40,15 +40,6 @@ router.get('/giveshoppingItem' , (req,res) => {
 });
 
 
-=======
-      res.send(user);
-    })
-    .catch(error => {
-      res.status(500).send(error);
-    });
-};
-router.get("/shopping", getEmployeeByID);
->>>>>>> 298503d4fff6ac6e0838584c370175fc37c521e1
 
 ///////////////////////
 // user registration //
@@ -72,25 +63,10 @@ router.post("/insert", (req, res) => {
       });
     }
     if (previousUser) {
-<<<<<<< HEAD
 
-      return res.send({  messege: 'error : user already exist' })
-    }
-    else {
 
-      newUser.save((error, user) => {
-        if (error) {
-          return res.send(
-            {
-              sucsses: false, messege: 'error : server error'
-            })
 
-        } else
-          return res.send(user);
 
-      }
-      );
-=======
       return res.send({ messege: "error : user already exist" });
     } else {
       newUser.save((error, user) => {
@@ -100,7 +76,7 @@ router.post("/insert", (req, res) => {
           });
         } else return res.send(user);
       });
->>>>>>> 298503d4fff6ac6e0838584c370175fc37c521e1
+
       // save new user
     }
   });
@@ -138,28 +114,16 @@ router.post("/loginInsert", (req, res) => {
   const userEmails = req.body.userEmail.toLowerCase();
 
   DB.User.findOne({ userEmail: userEmails }, (error, previousUser) => {
-<<<<<<< HEAD
 
-    if (error) 
-    res.send({messege:'error server'});
-    
-    if (!previousUser) 
-      res.send ({messege:'no user found'});
-    if (!previousUser.validPassword(userP))
-     {res.send({messege : 'error Password'});}
-     
-     res.send(previousUser);
+    if (error)
+      res.send({ messege: 'error server' });
 
-=======
-    if (error) {
-      return res.send({ messege: "server error" });
-    } else if (previousUser) res.send(previousUser);
-    else {
-      return res.send({
-        messege: " user not found"
-      });
-    }
->>>>>>> 298503d4fff6ac6e0838584c370175fc37c521e1
+    if (!previousUser)
+      res.send({ messege: 'no user found' });
+    if (!previousUser.validPassword(userP)) { res.send({ messege: 'error Password' }); }
+
+    res.send(previousUser);
+
 
     res.send(previousUser._id);
   });
@@ -169,33 +133,12 @@ router.post("/loginInsert", (req, res) => {
 ///////// Add Item in shoppingList //////
 /////////////////////////////////////////
 
-<<<<<<< HEAD
-router.post('/addShoppingList',  (req, res) => {
-=======
-router.post("/WishList", async (req, res) => {
->>>>>>> 298503d4fff6ac6e0838584c370175fc37c521e1
+router.post('/addShoppingList', (req, res) => {
   const { body } = req;
   const { title, price, category } = body;
 
-<<<<<<< HEAD
 
-=======
-  // if (!category) {
-  //   return res.send(
-  //     { messege: 'password error' }
-  //   )
-  // }
-  // if (!price) {
-  //   return res.send(
-  //     { messege: 'Email error' }
-  //   )
-  // }
-  // if (!title) {
-  //   return res.send(
-  //     { messege: 'Email error' }
-  //   )
-  // }
->>>>>>> 298503d4fff6ac6e0838584c370175fc37c521e1
+
 
   const newItem = new DB.Shopping();
 
@@ -211,55 +154,41 @@ router.post("/WishList", async (req, res) => {
 
   // check if Item found
 
-<<<<<<< HEAD
+
 
   DB.Shopping.find({ title: titles }, (error, Item) => {
-=======
-  DB.Shopping.findOne({ title: titles }, (error, Item) => {
->>>>>>> 298503d4fff6ac6e0838584c370175fc37c521e1
+
     if (error) {
       return res.send("server error");
     } else if (Item) {
-<<<<<<< HEAD
+
       console.log(prices);
       console.log(Item.price);
-      
-      if (Item.price != prices ) {
+
+      if (Item.price != prices) {
 
         newItem.save((error, obj) => {
           if (error) {
             return res.send('server error');
           }
-           else {console.log('hhhhhhhh');
-           
+          else {
+            console.log('hhhhhhhh');
+
             res.send('Itemmmmmm saved');
           }
         })
       } else { return res.send('Item already exist') }
 
-=======
-      if (Item.price != prices) {
-        newItem.save((error, obj) => {
-          if (error) {
-            return res.send({ messege: "server error" });
-          } else {
-            res.send(obj);
-          }
-        });
-      } else {
-        return res.send({ messege: "Item already saved" });
-      }
->>>>>>> 298503d4fff6ac6e0838584c370175fc37c521e1
     } else {
       newItem.save((error, obj) => {
         if (error) {
           return res.send("server error");
         } else {
-<<<<<<< HEAD
+
           res.send('Item saveddddd');
-=======
-          res.send(obj);
->>>>>>> 298503d4fff6ac6e0838584c370175fc37c521e1
+
+
+
         }
       });
     }
@@ -290,7 +219,7 @@ router.post("/WishList", async (req, res) => {
   //     )
 
   //     }
-<<<<<<< HEAD
+
   // } 
 
 
@@ -308,15 +237,15 @@ router.post("/WishList", async (req, res) => {
 ////ddelete from shoping list/////
 //////////////////////////////////
 
-router.post('/deleteItem' , (req,res) => {
-  DB.Shopping.remove({ _id : req.body._id}  , (error , result) => {
+router.post('/deleteItem', (req, res) => {
+  DB.Shopping.remove({ _id: req.body._id }, (error, result) => {
     if (error) {
-      console.log('error');res.send('error');
-      
+      console.log('error'); res.send('error');
+
     } else {
-      console.log('deleted');res.send ('deleted')
+      console.log('deleted'); res.send('deleted')
     }
-  } );
+  });
 
 
 }
@@ -327,7 +256,7 @@ router.post('/deleteItem' , (req,res) => {
 //////// Add in wishList////////
 ////////////////////////////////
 
-router.post('/addWishList' , (req,res) => {
+router.post('/addWishList', (req, res) => {
   const { body } = req;
   const { title, price, catgegory } = body;
 
@@ -339,11 +268,11 @@ router.post('/addWishList' , (req,res) => {
 
   newItem.price = price;
   newItem.title = title.toLowerCase();
-  newItem.wishListCecked = true ; //// difference here
+  newItem.wishListCecked = true; //// difference here
   newItem.user_id = req.body._id;
   const titles = body.title.toLowerCase();
 
-  
+
 
 
   // check if Item found
@@ -373,13 +302,13 @@ router.post('/addWishList' , (req,res) => {
       });
     }
 
-}
-); //end find one
+  }
+  ); //end find one
 })
 
-router.get('/giveWishList' , (req,res) => {
-  DB.Shopping.find({$and:[{ user_id : req.params._id},{wishListCecked : true}]} ,
-    (error , result) => {
+router.get('/giveWishList', (req, res) => {
+  DB.Shopping.find({ $and: [{ user_id: req.params._id }, { wishListCecked: true }] },
+    (error, result) => {
       if (error) {
         res.send('error usually from id');
       } else {
@@ -387,11 +316,5 @@ router.get('/giveWishList' , (req,res) => {
       }
     });
 });
-
-
-=======
-  // }
-});
->>>>>>> 298503d4fff6ac6e0838584c370175fc37c521e1
 
 module.exports = router;

@@ -4,12 +4,16 @@
     -webkit-box-sizing: border-box;
     margin: 0;
     padding: 0;
+
 }
 
 body {
-    font-family: 'Noticia Text', 'Viga', 'Muli';
+    height: 100%;
+    font-family: 'Nunito';
+
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    background-color: rgb(254, 254, 254);
 }
 
 

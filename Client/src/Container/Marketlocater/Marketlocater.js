@@ -86,8 +86,6 @@ class Marketlocater extends Component {
   render() {
     return (
       <main>
-        <NavigationBar />
-        <NavBar />
         <div id="map"></div>
       </main>
     );

@@ -10,9 +10,9 @@ import {
 import { MdDelete } from "react-icons/md";
 import { GiShoppingCart } from "react-icons/gi";
 import "./Wishlist.css";
-import { NavigationBar } from "../../Component/NavigationBar/NavigationBar";
-import NavBar from "../../Component/Nav/NavBar";
 import axios from "axios";
+
+const user = JSON.parse(localStorage.getItem("user") || "");
 
 class WishList extends Component {
   state = {
@@ -24,17 +24,16 @@ class WishList extends Component {
     show: false
   };
 
-  // componentDidMount() {
-  //   axios.get("").then(res => {
-  //     this.setState({
-  //       wishList: res.data,
-  //       title: "",
-  //       price: "",
-  //       category: ""
-  //     });
-  //     console.log(data).catch(err => console.log(err));
-  //   });
-  // }
+  componentDidMount() {
+    this.getlist();
+  }
+
+  getlist = () => {
+    axios.get("http://localhost:3001/users/WishList").then(res => {
+      const data = res.data;
+      this.setState({ wishList: data });
+    });
+  };
 
   handleShow = () => {
     this.setState({ show: true });
@@ -54,27 +53,41 @@ class WishList extends Component {
       .post("http://localhost:3001/users/WishList", {
         title: this.state.title,
         price: this.state.price,
-        category: this.state.category
+        category: this.state.category,
+        user_id: user._id
       })
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+      .then(res => {
+        this.setState({
+          wishList: this.state.wishList.concat(res.data),
+          title: "",
+          price: "",
+          category: ""
+        });
+      });
   };
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  sendItem(index) {
+    this.setState(prevState => ({
+      wishList: prevState.wishList.filter((_, i) => i !== index)
+    }));
+  }
+
   removeItem(index) {
     this.setState(prevState => ({
       wishList: prevState.wishList.filter((_, i) => i !== index)
     }));
     axios
-      .delete("/:id")
+      .delete("http://localhost:3001/users/WishList:id")
       .then(res => console.log(res))
       .catch(err => console.log(err));
   }
 
   render() {
+    console.log(user);
     const { title, price, category } = this.state;
 
     const isEnabled =
@@ -82,16 +95,12 @@ class WishList extends Component {
 
     return (
       <div className="main-container">
-        <NavigationBar />
-        <NavBar />
-
-        <h5>My Wishlist</h5>
+        <h5>My Wish List</h5>
         <div className="add_btn">
           <Button variant="dark" onClick={this.handleShow}>
             Add Item
           </Button>
         </div>
-
         <Modal
           show={this.state.show}
           onHide={this.handleClose}
@@ -137,9 +146,9 @@ class WishList extends Component {
                   onChange={this.handleChange}
                 >
                   <option value="">Select Category</option>
-                  <option value="Home Fureniture">Home Fureniture</option>
+                  <option value="Home Fureniture">Home Furniture</option>
                   <option value="Home Decoration">Home Decoration</option>
-                  <option value="Garden Fureniture">Garden Fureniture</option>
+                  <option value="Garden Fureniture">Garden Furniture</option>
                   <option value="Kitchen appliances">Kitchen appliances</option>
                   <option value="Bath">Bath</option>
                   <option value="Home & More">Home & More</option>
@@ -161,7 +170,6 @@ class WishList extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-
         <div className="Table">
           <Table striped hover>
             <thead>
@@ -184,7 +192,10 @@ class WishList extends Component {
                         className="delete"
                         onClick={() => this.removeItem(index)}
                       />
-                      <GiShoppingCart className="add_shop" />
+                      <GiShoppingCart
+                        className="add_shop"
+                        onClick={() => this.sendItem(index)}
+                      />
                     </td>
                   </tr>
                 </tbody>
@@ -192,6 +203,7 @@ class WishList extends Component {
             })}
           </Table>
         </div>
+        <div className="sharethis-inline-share-buttons"></div>
       </div>
     );
   }

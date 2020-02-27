@@ -1,34 +1,44 @@
 import React, { Component } from "react";
 import "./LoginRegister.css";
 import axios from "axios";
+// import { getFromStorage, setInStorage } from "../../Component/Storage";
 
 class LoginRegister extends Component {
   state = {
     userE: "",
     userPass: "",
-
     userEmail: "",
     userName: "",
     userPassword: ""
+    // token: ""
   };
 
-  handelLogin = () => {
+  handelLogin = e => {
+    e.preventDefault();
+
     axios
       .post("http://localhost:3001/users/loginInsert", {
         userE: this.state.userE,
         userPass: this.state.userPass
       })
-      .then(data => console.log(data));
+      .then(({ data }) => {
+        localStorage.setItem("user", JSON.stringify(data));
+        this.props.history.push("./shoppinglist");
+      });
   };
 
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
     axios
       .post("http://localhost:3001/users/insert", {
         userEmail: this.state.userEmail,
         userName: this.state.userName,
         userPassword: this.state.userPassword
       })
-      .then(data => console.log(data));
+      .then(({ data }) => {
+        localStorage.setItem("user", JSON.stringify(data));
+        this.props.history.push("./shoppinglist");
+      });
   };
 
   handleInput = e => {

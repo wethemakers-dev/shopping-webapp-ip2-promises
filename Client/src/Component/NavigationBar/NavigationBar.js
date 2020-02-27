@@ -11,23 +11,23 @@ const Styles = styled.div`
     color: white;
     background-color;
   }
-  .shop {
-    margin-left: 100px;
+  .nav-btn{
+    font-size: 13px;
   }
+ 
   .logo {
-    width: 50px;
+    width: 40px;
   }
   .navbar {
-    padding: 0rem 1rem;
-    background-color: #2ca3a5;
+    background-color: #1B96F4;
+    padding: 0rem 1rem
   }
 
   a,
   .navbar-brand,
   .navbar-nav .nav-link {
     text-decoration: none;
-    font-size: 11px;
-    font-family: "Muli";
+    font-family: 'Nunito';
 
     color: black;
 
@@ -40,26 +40,17 @@ const Styles = styled.div`
 export const NavigationBar = () => (
   <Header>
     <Styles>
-      <Navbar expand="lg">
-        <Navbar.Brand href="/">
+      <Navbar>
+        <Navbar.Brand href="#home">
           <img className="logo" src={logo} />
         </Navbar.Brand>
-        <Navbar.Toggle className="toggle" aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto">
-            <Nav.Item>
-              <Link to="/Share">
-                <Button variant="light">Share</Button>
-              </Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Link to="/">
-                <Button variant="outline-light" className="shop">
-                  Log out
-                </Button>
-              </Link>
-            </Nav.Item>
-          </Nav>
+        <Navbar.Toggle />
+        <Navbar.Collapse className="justify-content-end">
+          <Nav.Link as={Link} to="/">
+            <Button className="nav-btn" variant="outline-light">
+              Log out
+            </Button>
+          </Nav.Link>
         </Navbar.Collapse>
       </Navbar>
     </Styles>

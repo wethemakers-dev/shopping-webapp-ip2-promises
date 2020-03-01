@@ -20,7 +20,7 @@ class LoginRegister extends Component {
         userPassword: this.state.userPassword
       })
       .then(({ data }) => {
-        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("userID", data._id);
         this.props.history.push("./shoppinglist");
         console.log(data);
       });
@@ -35,7 +35,7 @@ class LoginRegister extends Component {
         userPassword: this.state.userPassword
       })
       .then(({ data }) => {
-        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("userID", data._id);
         this.props.history.push("./shoppinglist");
         console.log(data);
       });

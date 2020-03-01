@@ -11,14 +11,16 @@ import { MdDelete } from "react-icons/md";
 import { GiShoppingCart } from "react-icons/gi";
 import "./Wishlist.css";
 import axios from "axios";
+import NavBar from "../../Component/Nav/NavBar";
+import { NavigationBar } from "../../Component/NavigationBar/NavigationBar";
 
-const user = JSON.parse(localStorage.getItem("user") || "");
+const user = localStorage.getItem("userID");
 
 class WishList extends Component {
   state = {
     title: "",
     price: "",
-    category: "",
+    catgegory: "",
     wishList: [],
     show: false
   };
@@ -27,8 +29,8 @@ class WishList extends Component {
     this.getlist();
   }
 
-  getlist = () => {
-    axios.get("http://localhost:3001/users/giveWishList").then(res => {
+  getlist = async () => {
+    await axios.get("http://localhost:3001/users/giveWishList").then(res => {
       const data = res.data;
       this.setState({ wishList: data });
     });
@@ -43,24 +45,23 @@ class WishList extends Component {
 
   handleSubmitButton = e => {
     e.preventDefault();
-    const { title, price, category } = this.state;
+    const { title, price, catgegory } = this.state;
     this.setState(prevState => ({
-      wishList: [...prevState.wishList, { title, price, category }],
+      wishList: [...prevState.wishList, { title, price, catgegory }],
       show: false
     }));
     axios
       .post("http://localhost:3001/users/addWishList", {
         title: this.state.title,
         price: this.state.price,
-        category: this.state.category,
+        catgegory: this.state.catgegory,
         user_id: user._id
       })
       .then(res => {
         this.setState({
-          wishList: this.state.wishList.concat(res.data),
           title: "",
           price: "",
-          category: ""
+          catgegory: ""
         });
       });
   };
@@ -75,24 +76,28 @@ class WishList extends Component {
     }));
   }
 
-  removeItem(index) {
+  removeItem(index, _id) {
     this.setState(prevState => ({
       wishList: prevState.wishList.filter((_, i) => i !== index)
     }));
     axios
-      .delete("http://localhost:3001/users/deleteItem", {})
+      .post("http://localhost:3001/users/deleteWishlist", {
+        _id
+      })
       .then(res => console.log(res))
       .catch(err => console.log(err));
   }
 
   render() {
-    const { title, price, category } = this.state;
+    const { title, price, catgegory } = this.state;
 
     const isEnabled =
-      title.length > 0 && price.length > 0 && category.length > 0;
+      title.length > 0 && price.length > 0 && catgegory.length > 0;
 
     return (
       <div className="main-container">
+        <NavigationBar />
+        <NavBar />
         <h5>My Wish List</h5>
         <div className="add_btn">
           <Button variant="dark" onClick={this.handleShow}>
@@ -139,8 +144,8 @@ class WishList extends Component {
                 <Form.Label>Category</Form.Label>
                 <Form.Control
                   as="select"
-                  name="category"
-                  value={this.state.category}
+                  name="catgegory"
+                  value={this.state.catgegory}
                   onChange={this.handleChange}
                 >
                   <option value="">Select Category</option>
@@ -184,15 +189,11 @@ class WishList extends Component {
                   <tr>
                     <td> {item.title}</td>
                     <td>${item.price}</td>
-                    <td>{item.category}</td>
+                    <td>{item.catgegory}</td>
                     <td>
                       <MdDelete
                         className="delete"
-                        onClick={() => this.removeItem(index)}
-                      />
-                      <GiShoppingCart
-                        className="add_shop"
-                        onClick={() => this.sendItem(index)}
+                        onClick={() => this.removeItem(index, item._id)}
                       />
                     </td>
                   </tr>

@@ -5,6 +5,7 @@ import { Nav, Navbar } from "react-bootstrap";
 import styled from "styled-components";
 import logo from "../../assets/images/Untitled design.png";
 import { Button } from "react-bootstrap";
+import Axios from "axios";
 
 const Styles = styled.div`
   .toggle {
@@ -37,22 +38,32 @@ const Styles = styled.div`
   }
 `;
 
-export const NavigationBar = () => (
-  <Header>
-    <Styles>
-      <Navbar>
-        <Navbar.Brand href="#home">
-          <img className="logo" src={logo} />
-        </Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
-          <Nav.Link as={Link} to="/">
-            <Button className="nav-btn" variant="outline-light">
-              Log out
-            </Button>
-          </Nav.Link>
-        </Navbar.Collapse>
-      </Navbar>
-    </Styles>
-  </Header>
-);
+export const NavigationBar = () => {
+  const logout = () => {
+    localStorage.setItem("userID", null);
+  };
+
+  return (
+    <Header>
+      <Styles>
+        <Navbar>
+          <Navbar.Brand href="#home">
+            <img className="logo" src={logo} />
+          </Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse className="justify-content-end">
+            <Nav.Link as={Link} to="/">
+              <Button
+                onClick={logout}
+                className="nav-btn"
+                variant="outline-light"
+              >
+                Log out
+              </Button>
+            </Nav.Link>
+          </Navbar.Collapse>
+        </Navbar>
+      </Styles>
+    </Header>
+  );
+};

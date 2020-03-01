@@ -127,13 +127,13 @@ router.post("/loginInsert", (req, res) => {
 
 router.post("/addShoppingList", (req, res) => {
   const { body } = req;
-  const { title, price, category } = body;
+  const { title, price, catgegory } = body;
 
   const newItem = new DB.Shopping();
 
   const prices = body.price;
 
-  newItem.category = category;
+  newItem.catgegory = catgegory;
 
   newItem.price = price;
   newItem.title = title.toLowerCase();
@@ -210,10 +210,19 @@ router.post("/addShoppingList", (req, res) => {
 router.post("/deleteItem", (req, res) => {
   DB.Shopping.remove({ _id: req.body._id }, (error, result) => {
     if (error) {
-      console.log("error");
       res.send("error");
     } else {
-      console.log("deleted");
+      res.send("deleted");
+    }
+  });
+}); //end delete post method
+
+router.post("/deleteWishlist", (req, res) => {
+  console.log(req.body);
+  DB.wishList.remove(req.body, (error, result) => {
+    if (error) {
+      res.send("error");
+    } else {
       res.send("deleted");
     }
   });
@@ -227,7 +236,7 @@ router.post("/addWishList", (req, res) => {
   const { body } = req;
   const { title, price, catgegory } = body;
 
-  const newItem = new DB.Shopping();
+  const newItem = new DB.wishList();
 
   const prices = body.price;
 
@@ -241,7 +250,7 @@ router.post("/addWishList", (req, res) => {
 
   // check if Item found
 
-  DB.Shopping.findOne({ title: titles }, (error, Item) => {
+  DB.wishList.findOne({ title: titles }, (error, Item) => {
     if (error) {
       return res.send("server error");
     } else if (Item) {
@@ -269,16 +278,13 @@ router.post("/addWishList", (req, res) => {
 });
 
 router.get("/giveWishList", (req, res) => {
-  DB.Shopping.find(
-    { $and: [{ user_id: req.params._id }, { wishListCecked: true }] },
-    (error, result) => {
-      if (error) {
-        res.send("error usually from id");
-      } else {
-        res.send(result);
-      }
+  DB.wishList.find({ user_id: req.params._id }, (error, result) => {
+    if (error) {
+      res.send("error usually from id");
+    } else {
+      res.send(result);
     }
-  );
+  });
 });
 
 /////logout ///////

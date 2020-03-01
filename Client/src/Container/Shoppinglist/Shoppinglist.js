@@ -7,18 +7,19 @@ import {
   InputGroup,
   FormControl
 } from "react-bootstrap";
-import { MdDelete } from "react-icons/md";
 import { FiCheckSquare } from "react-icons/fi";
 import "./Shoppinglist.css";
 import axios from "axios";
+import { NavigationBar } from "../../Component/NavigationBar/NavigationBar";
+import NavBar from "../../Component/Nav/NavBar";
 
-const user = JSON.parse(localStorage.getItem("user") || "");
+const user = localStorage.getItem("userID");
 
 class Shoppinglist extends Component {
   state = {
     title: "",
     price: "",
-    category: "",
+    catgegory: "",
     shoppingList: [],
     show: false
   };
@@ -28,7 +29,8 @@ class Shoppinglist extends Component {
   }
 
   getlist = () => {
-    axios.get("http://localhost:3001/users/WishList").then(res => {
+    axios.get("http://localhost:3001/users/giveshoppingItem").then(res => {
+      console.log(res);
       const data = res.data;
       this.setState({ shoppingList: data });
     });
@@ -43,24 +45,23 @@ class Shoppinglist extends Component {
 
   handleSubmitButton = e => {
     e.preventDefault();
-    const { title, price, category } = this.state;
+    const { title, price, catgegory } = this.state;
     this.setState(prevState => ({
-      shoppingList: [...prevState.shoppingList, { title, price, category }],
+      shoppingList: [...prevState.shoppingList, { title, price, catgegory }],
       show: false
     }));
     axios
-      .post("http://localhost:3001/users/WishList", {
+      .post("http://localhost:3001/users/addShoppingList", {
         title: this.state.title,
         price: this.state.price,
-        category: this.state.category,
-        user_id: user._id
+        catgegory: this.state.catgegory,
+        user_id: user
       })
       .then(res => {
         this.setState({
-          shoppingList: this.state.shoppingList.concat(res.data),
           title: "",
           price: "",
-          category: ""
+          catgegory: ""
         });
       });
   };
@@ -69,24 +70,28 @@ class Shoppinglist extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  removeItem(index) {
+  removeItem(index, _id) {
     this.setState(prevState => ({
       shoppingList: prevState.shoppingList.filter((_, i) => i !== index)
     }));
     axios
-      .delete("http://localhost:3001/users/WishList", {})
+      .post("http://localhost:3001/users/deleteItem", {
+        _id
+      })
       .then(res => console.log(res))
       .catch(err => console.log(err));
   }
 
   render() {
-    const { title, price, category } = this.state;
+    const { title, price, catgegory } = this.state;
 
     const isEnabled =
-      title.length > 0 && price.length > 0 && category.length > 0;
+      title.length > 0 && price.length > 0 && catgegory.length > 0;
 
     return (
       <div className="main-container">
+        <NavigationBar />
+        <NavBar />
         <h5>My Shopping List</h5>
         <div className="add_btn">
           <Button variant="dark" onClick={this.handleShow}>
@@ -131,14 +136,14 @@ class Shoppinglist extends Component {
               </InputGroup>
 
               <Form.Group>
-                <Form.Label>Category</Form.Label>
+                <Form.Label>catgegory</Form.Label>
                 <Form.Control
                   as="select"
-                  name="category"
-                  value={this.state.category}
+                  name="catgegory"
+                  value={this.state.catgegory}
                   onChange={this.handleChange}
                 >
-                  <option value="">Select Category</option>
+                  <option value="">Select catgegory</option>
                   <option value="Home Fureniture">Home Furniture</option>
                   <option value="Home Decoration">Home Decoration</option>
                   <option value="Garden Fureniture">Garden Furniture</option>
@@ -170,7 +175,7 @@ class Shoppinglist extends Component {
               <tr>
                 <th>Item Name</th>
                 <th>Price</th>
-                <th>Category</th>
+                <th>catgegory</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -180,11 +185,11 @@ class Shoppinglist extends Component {
                   <tr>
                     <td> {item.title}</td>
                     <td>${item.price}</td>
-                    <td>{item.category}</td>
+                    <td>{item.catgegory}</td>
                     <td>
                       <FiCheckSquare
                         className="done"
-                        onClick={() => this.removeItem(index)}
+                        onClick={() => this.removeItem(index, item._id)}
                       />
                     </td>
                   </tr>

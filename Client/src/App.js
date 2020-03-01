@@ -8,32 +8,23 @@ import { Container } from "rsuite";
 import Landingpage from "./Container/Landingpage/Landingpage";
 import "./App.css";
 import LoginRegister from "./Container/LoginRegister/LoginRegister";
-import { NavigationBar } from "./Component/NavigationBar/NavigationBar";
-import NavBar from "./Component/Nav/NavBar";
 
 class App extends Component {
   render() {
     return (
       <Container>
         <Router>
-          <Switch>
-            <Route exact path="/" component={Landingpage} /> />
-          </Switch>
-          <Switch>
-            <Route exact path="/LoginRegister" component={LoginRegister} />
-          </Switch>
-
-          <Container>
-            <NavigationBar />
-            <NavBar />
-            <Layout>
-              <Switch>
+          <Layout>
+            <Switch>
+              <Router>
+                <Route exact path="/LoginRegister" component={LoginRegister} />
                 <Route path="/Wishlist" component={Wishlist} />
                 <Route path="/marketlocater" component={Marketlocater} />
                 <Route path="/Shoppinglist" component={Shoppinglist} />
-              </Switch>
-            </Layout>
-          </Container>
+                <Route exact path="/" component={Landingpage} /> />
+              </Router>
+            </Switch>
+          </Layout>
         </Router>
       </Container>
     );

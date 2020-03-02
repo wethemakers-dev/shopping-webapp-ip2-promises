@@ -16,8 +16,8 @@ class LoginRegister extends Component {
 
     axios
       .post("http://localhost:3001/users/loginInsert", {
-        userEmail: this.state.userEmail,
-        userPassword: this.state.userPassword
+        userE: this.state.userE,
+        userPass: this.state.userPass
       })
       .then(({ data }) => {
         localStorage.setItem("userID", data._id);
@@ -35,7 +35,7 @@ class LoginRegister extends Component {
         userPassword: this.state.userPassword
       })
       .then(({ data }) => {
-        localStorage.setItem("userID", data._id);
+        const users = localStorage.setItem("userID", data._id);
         this.props.history.push("./shoppinglist");
         console.log(data);
       });
@@ -53,9 +53,6 @@ class LoginRegister extends Component {
     x.style.left = "-400px";
     y.style.left = "50px";
     z.style.left = "110px";
-
-    let i = document.getElementById("reg");
-    i.style.color = "white";
 
     let u = document.getElementById("log");
     u.style.color = "black";

@@ -5,7 +5,6 @@ import { Nav, Navbar } from "react-bootstrap";
 import styled from "styled-components";
 import logo from "../../assets/images/Untitled design.png";
 import { Button } from "react-bootstrap";
-import Axios from "axios";
 
 const Styles = styled.div`
   .toggle {
@@ -20,7 +19,7 @@ const Styles = styled.div`
     width: 40px;
   }
   .navbar {
-    background-color: #1B96F4;
+    background-color: #2C7FF9;
     padding: 0rem 1rem
   }
 
@@ -40,7 +39,7 @@ const Styles = styled.div`
 
 export const NavigationBar = () => {
   const logout = () => {
-    localStorage.setItem("userID", null);
+    localStorage.removeItem("userID");
   };
 
   return (

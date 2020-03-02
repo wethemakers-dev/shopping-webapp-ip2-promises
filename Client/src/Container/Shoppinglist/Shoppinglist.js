@@ -136,14 +136,14 @@ class Shoppinglist extends Component {
               </InputGroup>
 
               <Form.Group>
-                <Form.Label>catgegory</Form.Label>
+                <Form.Label>category</Form.Label>
                 <Form.Control
                   as="select"
                   name="catgegory"
                   value={this.state.catgegory}
                   onChange={this.handleChange}
                 >
-                  <option value="">Select catgegory</option>
+                  <option value="">Select category</option>
                   <option value="Home Fureniture">Home Furniture</option>
                   <option value="Home Decoration">Home Decoration</option>
                   <option value="Garden Fureniture">Garden Furniture</option>
@@ -175,7 +175,7 @@ class Shoppinglist extends Component {
               <tr>
                 <th>Item Name</th>
                 <th>Price</th>
-                <th>catgegory</th>
+                <th>Category</th>
                 <th>Actions</th>
               </tr>
             </thead>

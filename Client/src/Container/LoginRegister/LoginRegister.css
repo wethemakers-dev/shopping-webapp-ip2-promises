@@ -12,7 +12,7 @@
     height: 100%;
     background-attachment: fixed;
     width: 100%;
-    background: linear-gradient(83deg, rgba(52, 177, 169, 1) 43%, rgba(100, 202, 196, 1) 77%);
+    background-color: #2C7FF9;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -44,7 +44,7 @@
     width: 225px;
     margin: 35px auto;
     position: relative;
-    box-shadow: 0 0 20px 9px #ff61241f;
+    box-shadow: 0 0 20px 9px #ffffff1f;
     border-radius: 30px;
 }
 
@@ -64,12 +64,14 @@
     position: absolute;
     width: 115px;
     height: 100%;
-    background: #fd5e53;
+    background: #ececec;
     border-radius: 30px;
     transition: .5s;
 
 
 }
+
+
 
 .input-group {
     top: 180px;
@@ -96,11 +98,11 @@
     cursor: pointer;
     display: block;
     margin: auto;
-    background: #fd5e53;
+    background: #ececec;
     border: 0;
     outline: none;
     border-radius: 30px;
-    color: white;
+    color: rgb(0, 0, 0);
     margin-top: 10%;
 }
 

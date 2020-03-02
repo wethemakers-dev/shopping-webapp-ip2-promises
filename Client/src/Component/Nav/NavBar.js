@@ -59,7 +59,7 @@ const Styles = styled.div`
     width: 50px;
   }
   .nav {
-    background: #1b96f4;
+    background: #2c7ff9;
     margin-bottom: 40px;
     padding: 0px 0px 0px 100px;
     border-bottom: 0;

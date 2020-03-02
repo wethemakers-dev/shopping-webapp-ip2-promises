@@ -28,7 +28,7 @@ getEmployeeByID = (req, res) => {
 
 router.get("/giveshoppingItem", (req, res) => {
   DB.Shopping.find(
-    { $and: [{ user_id: req.params._id }, { wishListCecked: false }] },
+    { $and: [{ user_id: req.body._id }, { wishListCecked: false }] },
     (error, result) => {
       if (error) {
         res.send("error usually from id");
@@ -81,43 +81,44 @@ router.post("/insert", (req, res) => {
 //////////////////////
 
 router.post("/loginInsert", (req, res) => {
-  var userEmailss = req.body.userEmail.toLowerCase();
-  const uu = new DB.User();
-  DB.User.findOne({ userEmail: userEmailss }, (error, user) => {
-    if (error) {
-      res.send({ messege: "fails server" });
-    } else if (user) {
-      res.send(user);
-      console.log(user._id);
-    } else {
-      res.send({ messege: "error" });
-    }
-  });
+  // const uu = new DB.User();
+  // DB.User.findOne({ userEmail: userEmailss }, (error, user) => {
+  //   if (error) {
+  //     res.send({ messege: "fails server" });
+  //   } else if (user) {
+  //     res.send(user);
+  //     console.log(user._id);
+  //   } else {
+  //     res.send({ messege: "error" });
+  //   }
+  // });
 
-  var sessionData = req._id;
+  const { userE, userPass } = req.body;
+  console.log(userE, userPass);
 
-  const { userPassword, userEmail } = req.body;
+  if (!userPass) {
+    //console.log(userEmail, userPassword);
+    console.log(userPass);
 
-  if (!userPassword) {
     return res.send({ messege: "password error" });
   }
-  if (!userEmail) {
+  if (!userE) {
     return res.send({ messege: "Email error" });
   }
 
-  const userEmails = req.body.userEmail.toLowerCase();
+  const userEmails = req.body.userE.toLowerCase();
 
   DB.User.findOne({ userEmail: userEmails }, (error, previousUser) => {
     if (error) res.send({ messege: "error server" });
-
-    if (!previousUser) res.send({ messege: "no user found" });
-    if (!previousUser.validPassword(userP)) {
-      res.send({ messege: "error Password" });
+    else if (previousUser) {
+      if (previousUser.validPassword(userPass)) {
+        return res.send(previousUser);
+      } else {
+        return res.send("Password not correct");
+      }
+    } else {
+      return res.send({ messege: "no user found" });
     }
-
-    res.send(previousUser);
-
-    res.send(previousUser._id);
   });
 });
 

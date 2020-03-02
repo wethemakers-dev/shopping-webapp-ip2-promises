@@ -21,7 +21,7 @@ class App extends Component {
                 <Route path="/Wishlist" component={Wishlist} />
                 <Route path="/marketlocater" component={Marketlocater} />
                 <Route path="/Shoppinglist" component={Shoppinglist} />
-                <Route exact path="/" component={Landingpage} /> />
+                <Route exact path="/" component={Landingpage} />
               </Router>
             </Switch>
           </Layout>
